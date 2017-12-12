@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <clang-c/Index.h>
+#include <boost/filesystem.hpp>
 #include <iostream>
 #include "mstch/mstch.hpp"
 
@@ -36,6 +37,11 @@ int main(int argc, const char **argv) {
 	CXString version = clang_getClangVersion();
 	printf("%s\n", clang_getCString(version));
 	clang_disposeString(version);
+
+	boost::filesystem::path path = boost::filesystem::canonical("../../terrian_prototype/build/compile_commands.json");
+	printf("Full path: %S\nExists: %d\n", path.c_str(), 
+			boost::filesystem::exists(path));
+	//std::cout << path << std::endl;
 
 	CXIndex index = clang_createIndex(1, 1);
 

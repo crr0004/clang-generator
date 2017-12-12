@@ -44,4 +44,6 @@ clangBasic
 clang
 llvm
 version
+boost_system-mt
+boost_filesystem-mt
 	)
