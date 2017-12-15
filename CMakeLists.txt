@@ -18,11 +18,39 @@ add_subdirectory(mstch)
 include_directories(${mstch_INCLUDE_DIR})
 
 # Now build our tools
-add_executable(simple-tool src/main.cpp)
-target_link_libraries(simple-tool mstch)
+add_executable(ClangGeneratorp1 src/main.cpp)
+add_executable(ClangGeneratorTooling src/tooling_main.cpp)
+target_link_libraries(ClangGeneratorp1 mstch)
+target_link_libraries(ClangGeneratorTooling mstch)
 
 # Link against LLVM libraries
-target_link_libraries(simple-tool 
+target_link_libraries(ClangGeneratorp1 
+clangTooling
+clangFrontendTool
+clangFrontend
+clangDriver
+clangSerialization
+clangCodeGen
+clangParse
+clangSema
+clangStaticAnalyzerFrontend
+clangStaticAnalyzerCheckers
+clangStaticAnalyzerCore
+clangAnalysis
+clangARCMigrate
+clangRewrite
+clangRewriteFrontend
+clangEdit
+clangAST
+clangLex
+clangBasic
+clang
+llvm
+version
+boost_system-mt
+boost_filesystem-mt
+	)
+target_link_libraries(ClangGeneratorTooling
 clangTooling
 clangFrontendTool
 clangFrontend
