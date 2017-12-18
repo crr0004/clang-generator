@@ -54,9 +54,23 @@ class MyASTVisitor : public RecursiveASTVisitor<MyASTVisitor> {
 		}
 		bool VisitDecl(Decl* delc){
 
-			std::cout << delc->getDeclKindName() << "\n";
 			//delc->print(llvm::outs());
-			llvm::outs() << "\n";
+			if(isa<CXXMethodDecl>(delc)){
+				CXXMethodDecl *functionDecl = cast<CXXMethodDecl>(delc);
+				QualType qual = functionDecl->getReturnType();
+				if(functionDecl->isStatic()){
+					std::cout << "static ";
+				}
+				std::cout << "Function: " << qual.getAsString() << " " << functionDecl->getNameAsString() << "\n";
+			}else if(isa<NamedDecl>(delc)){
+				NamedDecl *nameDelc = cast<NamedDecl>(delc);
+				//std::cout << nameDelc->getQualifiedNameAsString() << " : " << nameDelc->getNameAsString() << "\n";
+				DeclarationName delcName = nameDelc->getDeclName();
+				QualType qual = delcName.getCXXNameType();
+				std::cout << qual.getAsString() <<" : " << delcName.getAsString() << "\n";
+			}else{
+				std::cout << "Delc Kind: " << delc->getDeclKindName() << "\n";
+			}
 			return true;
 
 		}
@@ -107,7 +121,7 @@ class MyASTConsumer : public ASTConsumer {
 			for (DeclGroupRef::iterator b = DR.begin(), e = DR.end(); b != e; ++b) {
 				// Traverse the declaration using our AST visitor.
 				Visitor.TraverseDecl(*b);
-				(*b)->dump();
+				//(*b)->dump();
 			}
 			return true;
 		}

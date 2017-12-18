@@ -20,8 +20,8 @@ include_directories(${mstch_INCLUDE_DIR})
 # Now build our tools
 add_executable(ClangGeneratorp1 src/main.cpp)
 add_executable(ClangGeneratorTooling src/tooling_main.cpp)
-target_link_libraries(ClangGeneratorp1 mstch)
-target_link_libraries(ClangGeneratorTooling mstch)
+#target_link_libraries(ClangGeneratorp1 mstch)
+#target_link_libraries(ClangGeneratorTooling mstch)
 
 # Link against LLVM libraries
 target_link_libraries(ClangGeneratorp1 
